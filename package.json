@@ -1,5 +1,5 @@
 {
-  "name": "jspdf",
+  "name": "@mathiasosterkamp/jspdf",
   "version": "2.5.0",
   "homepage": "https://github.com/mrrio/jspdf",
   "description": "PDF Document creation from JavaScript",
@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MrRio/jsPDF.git"
+    "url": "https://github.com/MathiasOsterkamp/jsPDF.git"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.0",

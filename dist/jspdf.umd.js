@@ -1,7 +1,7 @@
 /** @license
  *
  * jsPDF - PDF Document creation from JavaScript
- * Version 2.5.0 Built on 2021-12-21T09:44:51.864Z
+ * Version 2.5.0 Built on 2022-01-18T12:40:58.827Z
  *                      CommitID 00000000
  *
  * Copyright (c) 2010-2021 James Hall <james@parall.ax>, https://github.com/MrRio/jsPDF
@@ -54,22 +54,6 @@
   (global = global || self, factory(global.jspdf = {}));
 }(this, (function (exports) { 'use strict';
 
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
-
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
-
-    return _typeof(obj);
-  }
-
   var globalObject = function () {
     return "undefined" !== typeof window ? window : "undefined" !== typeof global ? global : "undefined" !== typeof self ? self : this;
   }();
@@ -106,10 +90,21 @@
     error: consoleError
   };
 
+  /**
+   * @license
+   * FileSaver.js
+   * A saveAs() FileSaver implementation.
+   *
+   * By Eli Grey, http://eligrey.com
+   *
+   * License : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md (MIT)
+   * source  : http://purl.eligrey.com/github/FileSaver.js
+   */
+
   function bom(blob, opts) {
     if (typeof opts === "undefined") opts = {
       autoBom: false
-    };else if (_typeof(opts) !== "object") {
+    };else if (typeof opts !== "object") {
       console.warn("Deprecated: Expected third argument to be a object");
       opts = {
         autoBom: !opts
@@ -166,7 +161,7 @@
   }
 
   var saveAs = globalObject.saveAs || ( // probably in some web worker
-  (typeof window === "undefined" ? "undefined" : _typeof(window)) !== "object" || window !== globalObject ? function saveAs() {
+  typeof window !== "object" || window !== globalObject ? function saveAs() {
     /* noop */
   } : // Use download attribute first if possible (#193 Lumia mobile) unless this is a native app
   typeof HTMLAnchorElement !== "undefined" && "download" in HTMLAnchorElement.prototype ? function saveAs(blob, name, opts) {
@@ -233,7 +228,7 @@
 
     var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
 
-    if ((isChromeIOS || force && isSafari) && (typeof FileReader === "undefined" ? "undefined" : _typeof(FileReader)) === "object") {
+    if ((isChromeIOS || force && isSafari) && typeof FileReader === "object") {
       // Safari doesn't allow downloading of blob URLs
       var reader = new FileReader();
 
@@ -974,6 +969,7 @@
     return result;
   }
 
+  /* eslint-disable no-console */
   /**
    * jsPDF's Internal PubSub Implementation.
    * Backward compatible rewritten on 2014 by
@@ -985,7 +981,7 @@
    */
 
   function PubSub(context) {
-    if (_typeof(context) !== "object") {
+    if (typeof context !== "object") {
       throw new Error("Invalid Context passed to initialize PubSub (jsPDF-module)");
     }
 
@@ -1092,7 +1088,7 @@
   GState.prototype.equals = function equals(other) {
     var ignore = "id,objectNumber,equals";
     var p;
-    if (!other || _typeof(other) !== _typeof(this)) return false;
+    if (!other || typeof other !== typeof this) return false;
     var count = 0;
 
     for (p in this) {
@@ -1192,7 +1188,7 @@
     var encryptionOptions = null;
     options = options || {};
 
-    if (_typeof(options) === "object") {
+    if (typeof options === "object") {
       orientation = options.orientation;
       unit = options.unit || unit;
       format = options.format || format;
@@ -2583,7 +2579,7 @@
               color = f3(ch1 / 255) + " " + letterArray[0];
           }
         }
-      } else if (typeof ch4 === "undefined" || _typeof(ch4) === "object") {
+      } else if (typeof ch4 === "undefined" || typeof ch4 === "object") {
         // assume RGBA
         if (ch4 && !isNaN(ch4.a)) {
           //TODO Implement transparency.
@@ -4252,7 +4248,7 @@
         angle = arguments[4];
         align = arguments[5];
 
-        if (_typeof(flags) !== "object" || flags === null) {
+        if (typeof flags !== "object" || flags === null) {
           if (typeof angle === "string") {
             align = angle;
             angle = null;
@@ -4989,7 +4985,7 @@
     };
 
     var fillWithOptionalPattern = function fillWithOptionalPattern(style, pattern) {
-      if (_typeof(pattern) === "object") {
+      if (typeof pattern === "object") {
         fillWithPattern(pattern, style);
       } else {
         out(style);
@@ -6663,6 +6659,7 @@
 
   jsPDF.version = "2.5.0";
 
+  /* global jsPDF */
   var jsPDFAPI = jsPDF.API;
   var scaleFactor = 1;
 
@@ -7148,7 +7145,7 @@
         scope.internal.newObjectDeferredBegin(fieldObject.objId, true);
         fieldObject.DA = AcroFormAppearance.createDefaultAppearanceStream(fieldObject);
 
-        if (_typeof(fieldObject) === "object" && typeof fieldObject.getKeyValueListForStream === "function") {
+        if (typeof fieldObject === "object" && typeof fieldObject.getKeyValueListForStream === "function") {
           keyValueList = fieldObject.getKeyValueListForStream();
         }
 
@@ -7238,7 +7235,7 @@
 
         scope.internal.newObjectDeferredBegin(fieldObject.objId, true);
 
-        if (_typeof(fieldObject) === "object" && typeof fieldObject.putStream === "function") {
+        if (typeof fieldObject === "object" && typeof fieldObject.putStream === "function") {
           fieldObject.putStream();
         }
 
@@ -7297,7 +7294,7 @@
           content += " ";
         }
 
-        switch (_typeof(array[i])) {
+        switch (typeof array[i]) {
           case "boolean":
           case "number":
           case "object":
@@ -8674,7 +8671,7 @@
         return undefined;
       },
       set: function set(value) {
-        if (_typeof(value) === "object") {
+        if (typeof value === "object") {
           _MK = value;
         }
       }
@@ -8834,7 +8831,7 @@
         return result.join("\n");
       },
       set: function set(value) {
-        if (_typeof(value) === "object") {
+        if (typeof value === "object") {
           _MK = value;
         }
       }
@@ -9476,7 +9473,7 @@
   AcroFormAppearance.internal.getWidth = function (formObject) {
     var result = 0;
 
-    if (_typeof(formObject) === "object") {
+    if (typeof formObject === "object") {
       result = scale(formObject.Rect[2]);
     }
 
@@ -9486,7 +9483,7 @@
   AcroFormAppearance.internal.getHeight = function (formObject) {
     var result = 0;
 
-    if (_typeof(formObject) === "object") {
+    if (typeof formObject === "object") {
       result = scale(formObject.Rect[3]);
     }
 
@@ -9555,6 +9552,36 @@
     Appearance: AcroFormAppearance
   };
   var AcroForm = jsPDF.AcroForm;
+
+  /** @license
+   * jsPDF addImage plugin
+   * Copyright (c) 2012 Jason Siefken, https://github.com/siefkenj/
+   *               2013 Chris Dowling, https://github.com/gingerchris
+   *               2013 Trinh Ho, https://github.com/ineedfat
+   *               2013 Edwin Alejandro Perez, https://github.com/eaparango
+   *               2013 Norah Smith, https://github.com/burnburnrocket
+   *               2014 Diego Casorran, https://github.com/diegocr
+   *               2014 James Robb, https://github.com/jamesbrobb
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   */
 
   (function (jsPDFAPI) {
 
@@ -9856,7 +9883,7 @@
     };
 
     var isDOMElement = function isDOMElement(object) {
-      return _typeof(object) === "object" && object.nodeType === 1;
+      return typeof object === "object" && object.nodeType === 1;
     };
 
     var getImageDataFromElement = function getImageDataFromElement(element, format) {
@@ -10263,7 +10290,7 @@
         rotation = arguments[8];
       }
 
-      if (_typeof(imageData) === "object" && !isDOMElement(imageData) && "imageData" in imageData) {
+      if (typeof imageData === "object" && !isDOMElement(imageData) && "imageData" in imageData) {
         var options = imageData;
         imageData = options.imageData;
         format = options.format || format || UNKNOWN;
@@ -11326,6 +11353,36 @@
   })(jsPDF.API);
 
   /**
+   * @license
+   * ====================================================================
+   * Copyright (c) 2013 Youssef Beddad, youssef.beddad@gmail.com
+   *               2013 Eduardo Menezes de Morais, eduardo.morais@usp.br
+   *               2013 Lee Driscoll, https://github.com/lsdriscoll
+   *               2014 Juan Pablo Gaviria, https://github.com/juanpgaviria
+   *               2014 James Hall, james@parall.ax
+   *               2014 Diego Casorran, https://github.com/diegocr
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   * ====================================================================
+   */
+  /**
    * @name cell
    * @module
    */
@@ -11618,7 +11675,7 @@
        * @param {Integer} [y] top-position for top-left corner of table
        * @param {Object[]} [data] An array of objects containing key-value pairs corresponding to a row of data.
        * @param {String[]} [headers] Omit or null to auto-generate headers at a performance cost
-        * @param {Object} [config.printHeaders] True to print column headers at the top of every page
+         * @param {Object} [config.printHeaders] True to print column headers at the top of every page
        * @param {Object} [config.autoSize] True to dynamically set the column widths to match the widest cell value
        * @param {Object} [config.margins] margin values for left, top, bottom, and width
        * @param {Object} [config.fontSize] Integer fontSize to use (optional)
@@ -11677,7 +11734,7 @@
         headerAligns = headerNames.map(function () {
           return "left";
         });
-      } else if (Array.isArray(headers) && _typeof(headers[0]) === "object") {
+      } else if (Array.isArray(headers) && typeof headers[0] === "object") {
         headerNames = headers.map(function (header) {
           return header.name;
         });
@@ -12220,6 +12277,7 @@
     return result;
   }
 
+  /* eslint-disable no-fallthrough */
   /**
    * This plugin mimics the HTML5 CanvasRenderingContext2D.
    *
@@ -12990,7 +13048,7 @@
 
       for (i = this.path.length - 1; i !== -1; i--) {
         if (this.path[i].type === "begin") {
-          if (_typeof(this.path[i + 1]) === "object" && typeof this.path[i + 1].x === "number") {
+          if (typeof this.path[i + 1] === "object" && typeof this.path[i + 1].x === "number") {
             pathBegin = new Point(this.path[i + 1].x, this.path[i + 1].y);
             break;
           }
@@ -15706,6 +15764,14 @@
   })(jsPDF.API);
 
   /**
+   * @license
+   * Copyright (c) 2018 Erik Koopmans
+   * Released under the MIT License.
+   *
+   * Licensed under the MIT License.
+   * http://opensource.org/licenses/mit-license
+   */
+  /**
    * jsPDF html PlugIn
    *
    * @name html
@@ -15720,7 +15786,7 @@
           return Promise.resolve(globalObject["html2canvas"]);
         }
 
-        if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object" && typeof module !== "undefined") {
+        if (typeof exports === "object" && typeof module !== "undefined") {
           return new Promise(function (resolve, reject) {
             try {
               resolve(require("html2canvas"));
@@ -15754,7 +15820,7 @@
           return Promise.resolve(globalObject["DOMPurify"]);
         }
 
-        if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object" && typeof module !== "undefined") {
+        if (typeof exports === "object" && typeof module !== "undefined") {
           return new Promise(function (resolve, reject) {
             try {
               resolve(require("dompurify"));
@@ -15790,8 +15856,7 @@
 
 
     var objType = function objType(obj) {
-      var type = _typeof(obj);
-
+      var type = typeof obj;
       if (type === "undefined") return "undefined";else if (type === "string" || obj instanceof String) return "string";else if (type === "number" || obj instanceof Number) return "number";else if (type === "function" || obj instanceof Function) return "function";else if (!!obj && obj.constructor === Array) return "array";else if (obj && obj.nodeType === 1) return "element";else if (type === "object") return "object";else return "unknown";
     };
     /**
@@ -16430,7 +16495,7 @@
 
     jsPDF.getPageSize = function (orientation, unit, format) {
       // Decode options object
-      if (_typeof(orientation) === "object") {
+      if (typeof orientation === "object") {
         var options = orientation;
         orientation = options.orientation;
         unit = options.unit || unit;
@@ -17685,13 +17750,13 @@
      *
      Color    Allowed      Interpretation
      Type     Bit Depths
-        0       1,2,4,8,16  Each pixel is a grayscale sample.
-        2       8,16        Each pixel is an R,G,B triple.
-        3       1,2,4,8     Each pixel is a palette index;
+         0       1,2,4,8,16  Each pixel is a grayscale sample.
+         2       8,16        Each pixel is an R,G,B triple.
+         3       1,2,4,8     Each pixel is a palette index;
                            a PLTE chunk must appear.
-        4       8,16        Each pixel is a grayscale sample,
+         4       8,16        Each pixel is a grayscale sample,
                            followed by an alpha sample.
-        6       8,16        Each pixel is an R,G,B triple,
+         6       8,16        Each pixel is an R,G,B triple,
                            followed by an alpha sample.
     */
 
@@ -24476,6 +24541,31 @@
     };
   })(jsPDF.API);
 
+  /** @license
+   * MIT license.
+   * Copyright (c) 2012 Willow Systems Corporation, https://github.com/willowsystems
+   *               2014 Diego Casorran, https://github.com/diegocr
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   * ====================================================================
+   */
   /**
    * jsPDF split_text_to_size plugin
    *
@@ -24520,7 +24610,7 @@
         if (typeof activeFont.metadata.widthOfString === "function") {
           output.push((activeFont.metadata.widthOfGlyph(activeFont.metadata.characterToGlyph(char_code)) + charSpace * (1000 / fontSize) || 0) / 1000);
         } else {
-          if (doKerning && _typeof(kerning[char_code]) === "object" && !isNaN(parseInt(kerning[char_code][prior_char_code], 10))) {
+          if (doKerning && typeof kerning[char_code] === "object" && !isNaN(parseInt(kerning[char_code][prior_char_code], 10))) {
             kerningValue = kerning[char_code][prior_char_code] / kerningFractionOf;
           } else {
             kerningValue = 0;
@@ -24813,6 +24903,30 @@
     };
   })(jsPDF.API);
 
+  /** @license
+   jsPDF standard_fonts_metrics plugin
+   * Copyright (c) 2012 Willow Systems Corporation, https://github.com/willowsystems
+   * MIT license.
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   * 
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   * 
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   * ====================================================================
+   */
   /**
    * This file adds the standard font metrics to jsPDF.
    *
@@ -24876,10 +24990,10 @@
 
           valuestring = numberprefix + valuestring.slice(0, -1) + mappingCompress[valuestring.slice(-1)];
         } else {
-          if (_typeof(value) === "object") {
+          if (typeof value === "object") {
             valuestring = compress(value);
           } else {
-            throw new Error("Don't know what to do with value type " + _typeof(value) + ".");
+            throw new Error("Don't know what to do with value type " + typeof value + ".");
           }
         }
 
@@ -25130,6 +25244,29 @@
     }]); // end of adding event handler
   })(jsPDF);
 
+  /** @license
+   * Copyright (c) 2012 Willow Systems Corporation, https://github.com/willowsystems
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining
+   * a copy of this software and associated documentation files (the
+   * "Software"), to deal in the Software without restriction, including
+   * without limitation the rights to use, copy, modify, merge, publish,
+   * distribute, sublicense, and/or sell copies of the Software, and to
+   * permit persons to whom the Software is furnished to do so, subject to
+   * the following conditions:
+   *
+   * The above copyright notice and this permission notice shall be
+   * included in all copies or substantial portions of the Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+   * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   * ====================================================================
+   */
   /**
    * jsPDF SVG plugin
    *
@@ -25145,7 +25282,7 @@
           return Promise.resolve(globalObject["canvg"]);
         }
 
-        if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object" && typeof module !== "undefined") {
+        if (typeof exports === "object" && typeof module !== "undefined") {
           return new Promise(function (resolve, reject) {
             try {
               resolve(require("canvg"));
@@ -25291,6 +25428,13 @@
     };
   })(jsPDF.API);
 
+  /**
+   * @license
+   * jsPDF viewerPreferences Plugin
+   * @author Aras Abbasi (github.com/arasabbasi)
+   * Licensed under the MIT License.
+   * http://opensource.org/licenses/mit-license
+   */
   /**
    * Adds the ability to set ViewerPreferences and by thus
    * controlling the way the document is to be presented on the
@@ -25571,7 +25715,7 @@
         }
       }
 
-      if (_typeof(options) === "object") {
+      if (typeof options === "object") {
         for (method in options) {
           value = options[method];
 
@@ -25981,9 +26125,9 @@
                       if (Object.prototype.toString.call(text[s]) === '[object Array]') {
                           cmapConfirm = fonts[key].metadata.cmap.unicode.codeMap[strText[s][0].charCodeAt(0)]; //Make sure the cmap has the corresponding glyph id
                       } else {
-                       }
+                        }
                   //}
-               } else {
+                } else {
                   cmapConfirm = fonts[key].metadata.cmap.unicode.codeMap[strText[s].charCodeAt(0)]; //Make sure the cmap has the corresponding glyph id
               }*/
         }

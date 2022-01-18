@@ -1,4 +1,13 @@
 {
-  "presets": [["@babel/env"]],
+  "presets": [
+    [
+      "@babel/env",
+
+      {
+        "exclude": ["@babel/plugin-transform-typeof-symbol"]
+      }
+    ]
+  ],
+
   "exclude": ["node_modules/**"]
 }
