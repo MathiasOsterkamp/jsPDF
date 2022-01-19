@@ -49,7 +49,7 @@
  *    kim3er, mfo, alnorth, Flamenco
  */
 
-declare module "@mathiasosterkamp/jspdf" {
+declare module "@mathiasosterkamp/customjspdf" {
   export interface Annotation {
     type: "text" | "freetext" | "link";
     title?: string;
